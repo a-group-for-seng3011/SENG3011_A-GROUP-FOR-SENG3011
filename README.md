@@ -15,6 +15,6 @@
 │   │   ├── Management Information
 │   │   ├── Design Details
 │   │   ├── Testing Documentation
-│   │   ├── Tinal Report
+│   │   ├── Final Report
 ```
 Deliverable 1 includes a report of design details under `Reports/Design Details.pdf` and management related information under `Reports/Management Information.pdf`.
