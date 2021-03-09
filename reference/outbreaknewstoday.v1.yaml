@@ -38,7 +38,7 @@ paths:
                     emailVerified: true
                     signUpDate: '2019-08-24'
         '404':
-          description: User Not Found
+          description: Not Found
       operationId: get-users-userId
       description: Retrieve the information of the user with the matching user ID.
     patch:
@@ -147,6 +147,35 @@ paths:
                   dateOfBirth: '1996-08-24'
         description: Post the necessary fields for the API to create a new user.
       description: Create a new user.
+  /articles:
+    parameters: []
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+      operationId: 'get-articles-location,keyTerms,date'
+      parameters:
+        - $ref: '#/components/parameters/Location'
+        - $ref: '#/components/parameters/Keyterm'
+        - $ref: '#/components/parameters/Start_Date'
+        - $ref: '#/components/parameters/End_Date'
+      description: Retrieve list of articles based on the users' query params.
 components:
   schemas:
     User:
