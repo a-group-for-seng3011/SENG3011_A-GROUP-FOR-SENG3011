@@ -5,6 +5,7 @@ info:
   description: A REST API for querying a database of outbreak reports scraped from Outbreak News Today
   contact:
     name: Amir Mosaddad
+    email: mosaddad.amir@gmail.com
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -197,3 +198,5 @@ components:
         - lastName
         - email
         - emailVerified
+tags:
+  - name: Outbreak News Today
