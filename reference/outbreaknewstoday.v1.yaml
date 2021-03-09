@@ -2,6 +2,7 @@ openapi: 3.0.0
 info:
   title: outbreaknewstoday
   version: '1.0'
+  description: A REST API for querying a database of outbreak reports scraped from Outbreak News Today
 servers:
   - url: 'http://localhost:3000'
 paths:
