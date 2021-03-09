@@ -198,5 +198,73 @@ components:
         - lastName
         - email
         - emailVerified
+    Location:
+      title: Location
+      type: object
+      properties:
+        country:
+          type: string
+          description: name of the country
+        location:
+          type: string
+          description: any other information about the location
+      x-examples:
+        example-1:
+          country: Australia
+          location: NSW
+      description: Basic location model
+    Disease:
+      title: Disease
+      type: string
+      x-examples:
+        example-1: string
+      description: Disease model is a string numeration
+    Syndrome:
+      title: Syndrome
+      type: string
+      description: Sydndrome model is a string numeration
+    Report:
+      title: Report
+      type: object
+      properties:
+        Diseases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Disease'
+        Syndromes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Syndrome'
+        Event_date:
+          $ref: '#/components/schemas/Date'
+        Locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+    Date_Exact:
+      type: string
+      title: Date_Exact
+      pattern: '^(\d{4})-(\d\d|xx)-(\d\d|xx) (\d\d|xx):(\d\d|xx):(\d\d|xx)$'
+      x-examples:
+        example-1: '2018-xx-xx xx:xx:xx'
+        example-2: '2018-11-01 xx:xx:xx'
+        example-3: '2018-11-xx 17:00:xx'
+      description: |-
+        yyyy-mm-dd hh:mm:ss format. Year is mandatory, every other segment is optional. Use 'x'
+        character if missing. 
+    Date_Range:
+      type: string
+      title: Date_Range
+      pattern: '^(\d{4})-(\d\d|xx)-(\d\d|xx) (\d\d|xx):(\d\d|xx):(\d\d|xx) to (\d{4})-(\d\d|xx)-(\d\d|xx) (\d\d|xx):(\d\d|xx):(\d\d|xx)$'
+      x-examples:
+        example-1: '2018-xx-xx xx:xx:xx to 2019-xx-xx xx:xx:xx'
+        example-2: '2018-11-01 17:xx:xx to 2018-12-xx xx:xx:xx'
+      description: first date must be a date before the second date
+    Date:
+      title: Date
+      oneOf:
+        - $ref: '#/components/schemas/Date_Exact'
+        - $ref: '#/components/schemas/Date_Range'
+      description: Date references
 tags:
   - name: Outbreak News Today
