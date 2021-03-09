@@ -267,5 +267,77 @@ components:
         - $ref: '#/components/schemas/Date_Exact'
         - $ref: '#/components/schemas/Date_Range'
       description: Date references
+    Article:
+      title: Article
+      type: object
+      description: |-
+        API should also transmit article data using this json schema - so that other
+        groups know what to expect from your API.
+      properties:
+        url:
+          type: string
+          format: uri
+        date_of_publication:
+          $ref: '#/components/schemas/Date_Exact'
+        headline:
+          type: string
+        main_text:
+          type: string
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+  securitySchemes: {}
+  responses:
+    Report_response:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              articles:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+        application/xml:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+              message:
+                type: string
+  parameters:
+    Location:
+      name: Location
+      in: query
+      required: true
+      schema:
+        type: string
+        example: '"Australia,NSW"'
+      description: country name is essential
+    Keyterm:
+      name: Keyterm
+      in: query
+      required: true
+      schema:
+        type: string
+        example: '"Anthrax,Zika"'
+      description: 'Disease,Syndrome...'
+    Start_Date:
+      name: Start_Date
+      in: query
+      schema:
+        type: string
+        example: '“2015-10-01T08:45:10”'
+      required: true
+    End_Date:
+      name: End_Date
+      in: query
+      required: true
+      schema:
+        type: string
+        example: '“2015-11-01T19:37:12”'
 tags:
   - name: Outbreak News Today
