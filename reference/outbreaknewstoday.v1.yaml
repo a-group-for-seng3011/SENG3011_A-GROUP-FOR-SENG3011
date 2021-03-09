@@ -241,6 +241,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Location'
+      description: An object containing information about a case mentioned in an article.
     Date_Exact:
       type: string
       title: Date_Exact
