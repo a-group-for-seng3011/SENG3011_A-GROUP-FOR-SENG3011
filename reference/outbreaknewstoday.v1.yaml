@@ -181,5 +181,24 @@ components:
       schema:
         type: string
         example: '“2015-11-01T19:37:12”'
+  examples:
+    article1:
+      value:
+        description: Example shared example
+        type: object
+        properties:
+          id:
+            type: string
+        required:
+          - id
+    article2:
+      value:
+        description: Example shared example
+        type: object
+        properties:
+          id:
+            type: string
+        required:
+          - id
 tags:
   - name: Outbreak News Today
