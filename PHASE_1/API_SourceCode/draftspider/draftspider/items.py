@@ -9,4 +9,8 @@ import scrapy
 class DraftspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    url = scrapy.Field()
+    date_of_publication = scrapy.Field()
+    headline = scrapy.Field()
+    main_text = scrapy.Field()
+    report = scrapy.Field()

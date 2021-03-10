@@ -1,4 +1,5 @@
 import scrapy
+from ..items import DraftspiderItem
 
 class APISpider(scrapy.Spider):
     name = 'api'
@@ -16,14 +17,22 @@ class APISpider(scrapy.Spider):
     
     def parse_article(self, response):
         for info in response.css('div.postsingle'):
+            url = response.url
+            date_of_publication = info.css('div.datsingle::text').get()
+            headline = info.css('div.posttitle h1::text').get().strip()
+            # headline = response.xpath('//title/text()').get()
             content = info.css('div.postcontent p::text').getall()[1:-1]
             main_text = ' '.join(content)
-            # salmonella case -> temp
-            if 'salmonella' in main_text:
-                yield {
-                    'url': response.url,
-                    'date_of_publication': info.css('div.datsingle::text').get(),
-                    'headline': info.css('div.posttitle h1::text').get().strip(),
-                    'main_text': main_text,
-                    'report': '[<object::report>]'
-                }
+            report = '[<object::report>]'
+
+            item = DraftspiderItem()
+
+            if 'salmonella' in headline:
+                item["url"] = url
+                item["date_of_publication"] = date_of_publication
+                item["headline"] = headline
+                item["main_text"] = main_text
+                item["report"] = report
+                yield item
+            else:
+                return
