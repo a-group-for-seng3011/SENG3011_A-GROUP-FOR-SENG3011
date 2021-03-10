@@ -1,5 +1,6 @@
 import scrapy
 from ..items import DraftspiderItem
+from datetime import datetime
 
 class APISpider(scrapy.Spider):
     name = 'api'
@@ -16,23 +17,23 @@ class APISpider(scrapy.Spider):
             yield response.follow(next_page, callback=self.parse)
     
     def parse_article(self, response):
-        for info in response.css('div.postsingle'):
-            url = response.url
-            date_of_publication = info.css('div.datsingle::text').get()
-            headline = info.css('div.posttitle h1::text').get().strip()
-            # headline = response.xpath('//title/text()').get()
-            content = info.css('div.postcontent p::text').getall()[1:-1]
-            main_text = ' '.join(content)
-            report = '[<object::report>]'
+        url = response.url
+        # date format: 2018-11-xx 17:00:xx
+        extract_datetime = response.xpath("//meta[@property='article:published_time']/@content").get()
+        date_str = extract_datetime[:-6]
+        date_of_publication = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S")
+        # headline = response.css('div.posttitle h1::text').get().strip()
+        headline = response.xpath('//title/text()').get()
+        content = response.css('div.postcontent p::text').getall()[1:-1]
+        main_text = ' '.join(content)
+        report = '[<object::report>]'
 
-            item = DraftspiderItem()
-
-            if 'salmonella' in headline:
-                item["url"] = url
-                item["date_of_publication"] = date_of_publication
-                item["headline"] = headline
-                item["main_text"] = main_text
-                item["report"] = report
-                yield item
-            else:
-                return
+        item = DraftspiderItem()
+        # salmonella case -> temporary
+        if 'salmonella' in headline:
+            item["url"] = url
+            item["date_of_publication"] = date_of_publication
+            item["headline"] = headline
+            item["main_text"] = main_text
+            item["report"] = report
+            yield item
