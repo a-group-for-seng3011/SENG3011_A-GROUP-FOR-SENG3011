@@ -1,5 +1,5 @@
 import scrapy
-from ..items import DraftspiderItem
+from ..items import ArticleItem
 from datetime import datetime
 
 class APISpider(scrapy.Spider):
@@ -7,7 +7,7 @@ class APISpider(scrapy.Spider):
     start_urls = ['http://outbreaknewstoday.com/category/headlines/']
 
     def parse(self, response):
-        article_links = response.css('div.rightconside a ::attr(href)')
+        article_links = response.css('div.posttitle a ::attr(href)')
         for link in article_links:
             url = link.get()
             if url:
@@ -22,18 +22,18 @@ class APISpider(scrapy.Spider):
         extract_datetime = response.xpath("//meta[@property='article:published_time']/@content").get()
         date_str = extract_datetime[:-6]
         date_of_publication = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S")
-        # headline = response.css('div.posttitle h1::text').get().strip()
         headline = response.xpath('//title/text()').get()
         content = response.css('div.postcontent p::text').getall()[1:-1]
         main_text = ' '.join(content)
         report = '[<object::report>]'
-
-        item = DraftspiderItem()
+        
+        articleItem = ArticleItem()
+        # result = {articleItem}
         # salmonella case -> temporary
         if 'salmonella' in headline:
-            item["url"] = url
-            item["date_of_publication"] = date_of_publication
-            item["headline"] = headline
-            item["main_text"] = main_text
-            item["report"] = report
-            yield item
+            articleItem["url"] = url
+            articleItem["date_of_publication"] = date_of_publication
+            articleItem["headline"] = headline
+            articleItem["main_text"] = main_text
+            # articleItem["report"] = report
+            yield articleItem
