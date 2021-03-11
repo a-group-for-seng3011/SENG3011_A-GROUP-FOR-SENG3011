@@ -35,14 +35,20 @@ class APISpider(scrapy.Spider):
         reportItem = ReportItem()
         locationItem = LocationItem()
 
+        # salmonella case
         if 'salmonella' in headline:
-            reportItem["diseases"] = 'salmonella'
-            reportItem["syndromes"] = 'blahblah'
-
+            # location item
+            locationItem["country"] = "empty country"
+            locationItem["location"] = "empty location"
+            # report item
+            reportItem["diseases"] = "salmonella"
+            reportItem["syndromes"] = "blahblah"
+            reportItem["event_date"] = date_of_publication
+            reportItem["location"] = [dict(locationItem)]
+            # article item
             articleItem["url"] = url
             articleItem["date_of_publication"] = date_of_publication
             articleItem["headline"] = headline
             articleItem["main_text"] = main_text
             articleItem["report"] = [dict(reportItem)]
-            # articleItem["report"] = report
             yield articleItem
