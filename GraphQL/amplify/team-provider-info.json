@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyd3cb9b275fbf4-staging-34436-authRole",
+      "UnauthRoleArn": "arn:aws:iam::968083395902:role/amplify-amplifyd3cb9b275fbf4-staging-34436-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::968083395902:role/amplify-amplifyd3cb9b275fbf4-staging-34436-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-amplifyd3cb9b275fbf4-staging-34436-deployment",
+      "UnauthRoleName": "amplify-amplifyd3cb9b275fbf4-staging-34436-unauthRole",
+      "StackName": "amplify-amplifyd3cb9b275fbf4-staging-34436",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:968083395902:stack/amplify-amplifyd3cb9b275fbf4-staging-34436/c51d51c0-8089-11eb-8c80-06833fcf1fa8",
+      "AmplifyAppId": "dqlyhhe5vn88p"
+    },
+    "categories": {
+      "auth": {
+        "OutbreakNewsToday": {}
+      }
+    }
+  }
+}
