@@ -1,7 +1,8 @@
 import scrapy
 import merpy
-import scispacy
-import en_ner_bc5cdr_md
+# import spacy
+# import scispacy
+# import en_ner_bc5cdr_md
 
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
@@ -107,15 +108,13 @@ class APISpider(scrapy.Spider):
         main_text = ' '.join(text_list)
         report = '[<object::report>]'
 
+        # TODO: move data processing to pipeline
         # integrate NLP tool to examine the headline
         # extract diseases
+        di_str = "<diseases>"
         merpy.process_lexicon("doid")
         di_meta = merpy.get_entities(headline, "doid")
-        di_meta = merpy.get_entities(headline, "doid")
-        di_str = "<diseases>"
         if di_meta != [['']]:
-            print("=======================>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<==============")
-            print(di_meta)
             di_list = [ sublist[2] for sublist in di_meta ]
             di_str = ','.join(di_list)
 
@@ -128,7 +127,8 @@ class APISpider(scrapy.Spider):
         locationItem["location"] = "<location>"
         # report item
         reportItem["diseases"] = di_str
-        reportItem["syndromes"] = find_syndromes(di_str, main_text)
+        # reportItem["syndromes"] = find_syndromes(di_str, main_text)
+        reportItem["syndromes"] = "<syndromes>"
         reportItem["event_date"] = date_of_publication
         reportItem["location"] = [dict(locationItem)]
         # article item
@@ -138,6 +138,4 @@ class APISpider(scrapy.Spider):
         articleItem["main_text"] = main_text
         articleItem["report"] = [dict(reportItem)]
 
-
-        # if 'COVID-19' in headline:
         yield articleItem
