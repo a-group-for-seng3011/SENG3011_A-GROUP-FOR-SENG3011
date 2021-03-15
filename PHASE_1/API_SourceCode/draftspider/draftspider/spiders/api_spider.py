@@ -10,7 +10,6 @@ def find_syndromes(diseases, content):
     diseases_list = diseases.split(',')
     # nlp_web_sm = spacy.load('en_core_web_sm')
     nlp_bc = en_ner_bc5cdr_md.load()
-    inf = inflect.engine()
     # doc_web_sm = nlp_web_sm(content)
     doc_bc = nlp_bc(content)
 
@@ -38,7 +37,15 @@ def find_syndromes(diseases, content):
             if li[-1].lower() == "coronavirus":
                 continue
             for c in li:
-                if "CoV" in c or c.isupper() or lemma[c] != c or c in diseases_list:
+                if "CoV" in c:
+                    break
+                if c.isupper():
+                    break
+                if lemma[c] != c:
+                    break
+                if "disease" in c:
+                    break
+                if c in diseases_list:
                     break
 
                 if pos.get(c) == "ADJ":
@@ -82,13 +89,20 @@ class APISpider(scrapy.Spider):
 
         # extract information for article object
         headline = response.xpath('//title/text()').get()
-        content = response.css('div.postcontent p::text').getall()[1:-1]
-        main_text = ' '.join(content)
+        # content = response.css('div.postcontent p::text').getall()[1:-1]
+        text_list = []
+        for elem in text:
+            if elem != '':
+                text_list.append(elem)
+        text_list.pop(0)
+        # TODO: also need to remove the headline of other articles inside the main_text
+        main_text = ' '.join(text_list)
         report = '[<object::report>]'
 
         # integrate NLP tool to examine the headline
         # extract diseases
         merpy.process_lexicon("doid")
+        di_meta = merpy.get_entities(headline, "doid")
         di_meta = merpy.get_entities(headline, "doid")
         di_str = "<diseases>"
         if di_meta != [['']]:

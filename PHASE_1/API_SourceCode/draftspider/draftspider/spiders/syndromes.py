@@ -81,8 +81,22 @@ class APISpider(scrapy.Spider):
             date_of_publication = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S")
 
         headline = response.xpath('//title/text()').get()
-        content = response.css('div.postcontent p::text').getall()[1:-1]
-        main_text = ' '.join(content)
+
+        text = [
+            ' '.join(
+                line.strip() 
+                for line in p.xpath('.//text()').extract() 
+                if line.strip()
+            ) 
+            for p in response.xpath('//div[@class="postcontent"]/p')
+        ]
+        text_list = []
+        for elem in text:
+            if elem != '':
+                text_list.append(elem)
+        text_list.pop(0)
+        # content = response.css('div.postcontent p::text').getall()[1:-1]
+        main_text = ' '.join(text_list)
         report = '[<object::report>]'
         
         articleItem = ArticleItem()
