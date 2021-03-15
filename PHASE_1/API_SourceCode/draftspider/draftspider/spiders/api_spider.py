@@ -90,6 +90,14 @@ class APISpider(scrapy.Spider):
         # extract information for article object
         headline = response.xpath('//title/text()').get()
         # content = response.css('div.postcontent p::text').getall()[1:-1]
+        text = [
+            ' '.join(
+                line.strip() 
+                for line in p.xpath('.//text()').extract() 
+                if line.strip()
+            ) 
+            for p in response.xpath('//div[@class="postcontent"]/p')
+        ]
         text_list = []
         for elem in text:
             if elem != '':

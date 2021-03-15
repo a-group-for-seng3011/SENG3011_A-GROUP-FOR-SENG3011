@@ -119,4 +119,5 @@ class APISpider(scrapy.Spider):
             articleItem["headline"] = headline
             articleItem["main_text"] = main_text
             articleItem["report"] = [dict(reportItem)]
+            
             yield articleItem
