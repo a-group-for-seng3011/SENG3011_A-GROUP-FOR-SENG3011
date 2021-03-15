@@ -1,7 +1,60 @@
 import scrapy
 import merpy
+import scispacy
+import en_ner_bc5cdr_md
+
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
+
+def find_syndromes(diseases, content):
+    diseases_list = diseases.split(',')
+    # nlp_web_sm = spacy.load('en_core_web_sm')
+    nlp_bc = en_ner_bc5cdr_md.load()
+    inf = inflect.engine()
+    # doc_web_sm = nlp_web_sm(content)
+    doc_bc = nlp_bc(content)
+
+    # combine text with its label
+    label = {}
+    for token in doc_bc.ents:
+        label[token.text] = token.label_
+    # combine text with its pos
+    pos = {}
+    for token in doc_bc:
+        pos[token.text] = token.pos_
+    # combine text with its lemma
+    lemma = {}
+    for token in doc_bc:
+        lemma[token.text] = token.lemma_
+
+    
+    syndromes = []
+    for k, v in label.items():
+        if v == "DISEASE":
+            li = k.split(" ")
+            noun = 0
+            adj = 0
+            adp = 0
+            if li[-1].lower() == "coronavirus":
+                continue
+            for c in li:
+                if "CoV" in c or c.isupper() or lemma[c] != c or c in diseases_list:
+                    break
+
+                if pos.get(c) == "ADJ":
+                    adj += 1
+                elif pos.get(c) == "NOUN":
+                    noun += 1
+                # "of" case
+                elif pos.get(c) == "ADP":
+                    adp += 1
+            if adj == 0 and noun >= 1:
+                syndromes.append(k)
+            elif adj == 1 and (noun >= 1 and noun <= 2):
+                syndromes.append(k)
+            elif adj == 0 and noun >= 1 and adp >= 1:
+                syndromes.append(k)
+    return syndromes
 
 class APISpider(scrapy.Spider):
     name = 'api'
@@ -53,7 +106,7 @@ class APISpider(scrapy.Spider):
         locationItem["location"] = "<location>"
         # report item
         reportItem["diseases"] = di_str
-        reportItem["syndromes"] = "<syndrome description>"
+        reportItem["syndromes"] = find_syndromes(di_str, main_text)
         reportItem["event_date"] = date_of_publication
         reportItem["location"] = [dict(locationItem)]
         # article item
