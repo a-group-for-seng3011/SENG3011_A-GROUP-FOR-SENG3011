@@ -1,10 +1,10 @@
 {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "outbre4caf01f4",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "outbre75e058d4",
     "userPoolName": "OutbreakNewsToday",
     "autoVerifiedAttributes": [
-        "phone_number"
+        "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -29,9 +29,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "Outbre4caf01f4_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Outbre75e058d4_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "4caf01f4",
+    "sharedId": "75e058d4",
     "resourceName": "OutbreakNewsToday",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
@@ -52,10 +52,19 @@
     ],
     "useDefault": "manual",
     "userPoolGroups": false,
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+        "Admins",
+        "Users"
+    ],
     "adminQueries": false,
     "thirdPartyAuth": false,
     "authProviders": [],
     "usernameCaseSensitive": false,
-    "dependsOn": []
+    "dependsOn": [],
+    "triggers": "{}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": []
 }

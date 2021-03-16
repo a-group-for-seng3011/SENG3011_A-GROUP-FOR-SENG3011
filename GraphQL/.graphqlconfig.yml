@@ -1,6 +1,6 @@
 projects:
-  outbreaknewstoday:
-    schemaPath: amplify/backend/api/outbreaknewstoday/build/schema.graphql
+  OutbreakNewsToday:
+    schemaPath: amplify/backend/api/OutbreakNewsToday/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -10,6 +10,9 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
+        region: ap-southeast-2
+        apiId: null
+        maxDepth: 2
 extensions:
   amplify:
     version: 3
