@@ -74,9 +74,9 @@ class APISpider(scrapy.Spider):
             url = link.get()
             if url:
                 yield response.follow(url=url, callback=self.parse_article)
-        # next_page = response.css('a.next.page-numbers').attrib['href']
-        # if next_page is not None:
-        #     yield response.follow(next_page, callback=self.parse)
+        next_page = response.css('a.next.page-numbers').attrib['href']
+        if next_page is not None:
+            yield response.follow(next_page, callback=self.parse)
     
     def parse_article(self, response):
         url = response.url
