@@ -1,8 +1,8 @@
 import scrapy
-import merpy
+import mymerpy
 # import spacy
 # import scispacy
-# import en_ner_bc5cdr_md
+import en_ner_bc5cdr_md
 
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
@@ -109,14 +109,14 @@ class APISpider(scrapy.Spider):
         report = '[<object::report>]'
 
         # TODO: move data processing to pipeline
+        # find_syndromes() cannot run because of exhaustion of memory
         # integrate NLP tool to examine the headline
         # extract diseases
         di_str = "<diseases>"
-        merpy.process_lexicon("doid")
-        di_meta = merpy.get_entities(headline, "doid")
+        di_meta = mymerpy.get_entities(headline, "doid")
         if di_meta != [['']]:
             di_list = [ sublist[2] for sublist in di_meta ]
-            di_str = ','.join(di_list)
+            di_str = ','.join(list(set(di_list)))
 
         # placeholders for internal objects
         articleItem = ArticleItem()

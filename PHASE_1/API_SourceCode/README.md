@@ -1,0 +1,17 @@
+## Run the web scraper in the virtual environment
+Set up a virtual environment outside our project folder and activate it
+```bash
+python3 -m venv seng3011venv
+source seng3011venv/bin/activate
+```
+You can diactivate the virtual environment anytime in any folder by the following instruction
+```bash
+deactivate
+```
+The next step is to go into our project folder and install necessary dependencies 
+```bash
+cd SENG3011_A-GROUP-FOR-SENG3011/PHASE_1/API_SourceCode
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+```
+This step can be relatively slow, it's going to take few minutes and ... some patience :)
