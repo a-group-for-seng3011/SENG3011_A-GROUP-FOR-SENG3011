@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
+    <title>ModelSyndromeConnection</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
+</head>
+<body class="slds-scrollable--y">
+    <nav class="slds-grid slds-grid--vertical slds-col--rule-right">
+        <header class="slds-p-around--medium slds-col slds-shrik slds-grow-none">
+            <button class="slds-button slds-button--icon slds-float--right js-toggle-navigation less-than-medium">
+                <i class="material-icons">close</i>
+            </button>
+                <h3 class="slds-text-heading--medium"><a href="./">GraphQL Schema</a></h3>
+            <div class="slds-p-top--small">
+                <input id="type-search" type="text" placeholder="Search a type" autofocus="" class="slds-input" />
+            </div>
+        </header>
+        <div id="navication-scroll" class="slds-scrollable--y slds-col slds-grow">
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Schema</h4>
+    <ul>
+        <li  title="Query">
+            <a href="query.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Query
+            </a>
+        </li>
+        <li  title="Mutation">
+            <a href="mutation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Mutation
+            </a>
+        </li>
+        <li  title="Subscription">
+            <a href="subscription.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Subscription
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Scalars</h4>
+    <ul>
+        <li  title="AWSDate">
+            <a href="awsdate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSDate
+            </a>
+        </li>
+        <li  title="AWSDateTime">
+            <a href="awsdatetime.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSDateTime
+            </a>
+        </li>
+        <li  title="AWSEmail">
+            <a href="awsemail.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSEmail
+            </a>
+        </li>
+        <li  title="AWSIPAddress">
+            <a href="awsipaddress.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSIPAddress
+            </a>
+        </li>
+        <li  title="AWSJSON">
+            <a href="awsjson.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSJSON
+            </a>
+        </li>
+        <li  title="AWSPhone">
+            <a href="awsphone.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSPhone
+            </a>
+        </li>
+        <li  title="AWSTime">
+            <a href="awstime.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSTime
+            </a>
+        </li>
+        <li  title="AWSTimestamp">
+            <a href="awstimestamp.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSTimestamp
+            </a>
+        </li>
+        <li  title="AWSURL">
+            <a href="awsurl.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AWSURL
+            </a>
+        </li>
+        <li  title="Boolean">
+            <a href="boolean.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Boolean
+            </a>
+        </li>
+        <li  title="Float">
+            <a href="float.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Float
+            </a>
+        </li>
+        <li  title="ID">
+            <a href="id.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ID
+            </a>
+        </li>
+        <li  title="Int">
+            <a href="int.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Int
+            </a>
+        </li>
+        <li  title="String">
+            <a href="string.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                String
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
+    <ul>
+        <li  title="ModelAttributeTypes">
+            <a href="modelattributetypes.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelAttributeTypes
+            </a>
+        </li>
+        <li  title="ModelSortDirection">
+            <a href="modelsortdirection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelSortDirection
+            </a>
+        </li>
+        <li  title="__DirectiveLocation">
+            <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __DirectiveLocation
+            </a>
+        </li>
+        <li  title="__TypeKind">
+            <a href="typekind.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __TypeKind
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
+    <ul>
+        <li  title="Article">
+            <a href="article.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Article
+            </a>
+        </li>
+        <li  title="Disease">
+            <a href="disease.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Disease
+            </a>
+        </li>
+        <li  title="Location">
+            <a href="location.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Location
+            </a>
+        </li>
+        <li  title="ModelArticleConnection">
+            <a href="modelarticleconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelArticleConnection
+            </a>
+        </li>
+        <li  title="ModelDiseaseConnection">
+            <a href="modeldiseaseconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelDiseaseConnection
+            </a>
+        </li>
+        <li  title="ModelLocationConnection">
+            <a href="modellocationconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelLocationConnection
+            </a>
+        </li>
+        <li  title="ModelReportConnection">
+            <a href="modelreportconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelReportConnection
+            </a>
+        </li>
+        <li class="slds-is-active" title="ModelSyndromeConnection">
+            <a href="modelsyndromeconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelSyndromeConnection
+            </a>
+        </li>
+        <li  title="Report">
+            <a href="report.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Report
+            </a>
+        </li>
+        <li  title="Syndrome">
+            <a href="syndrome.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Syndrome
+            </a>
+        </li>
+        <li  title="__Directive">
+            <a href="directive.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Directive
+            </a>
+        </li>
+        <li  title="__EnumValue">
+            <a href="enumvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __EnumValue
+            </a>
+        </li>
+        <li  title="__Field">
+            <a href="field.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Field
+            </a>
+        </li>
+        <li  title="__InputValue">
+            <a href="inputvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __InputValue
+            </a>
+        </li>
+        <li  title="__Schema">
+            <a href="schema.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Schema
+            </a>
+        </li>
+        <li  title="__Type">
+            <a href="type.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Type
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Input Objects</h4>
+    <ul>
+        <li  title="CreateArticleInput">
+            <a href="createarticleinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateArticleInput
+            </a>
+        </li>
+        <li  title="CreateDiseaseInput">
+            <a href="creatediseaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateDiseaseInput
+            </a>
+        </li>
+        <li  title="CreateLocationInput">
+            <a href="createlocationinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateLocationInput
+            </a>
+        </li>
+        <li  title="CreateReportInput">
+            <a href="createreportinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateReportInput
+            </a>
+        </li>
+        <li  title="CreateSyndromeInput">
+            <a href="createsyndromeinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateSyndromeInput
+            </a>
+        </li>
+        <li  title="DeleteArticleInput">
+            <a href="deletearticleinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteArticleInput
+            </a>
+        </li>
+        <li  title="DeleteDiseaseInput">
+            <a href="deletediseaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteDiseaseInput
+            </a>
+        </li>
+        <li  title="DeleteLocationInput">
+            <a href="deletelocationinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteLocationInput
+            </a>
+        </li>
+        <li  title="DeleteReportInput">
+            <a href="deletereportinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteReportInput
+            </a>
+        </li>
+        <li  title="DeleteSyndromeInput">
+            <a href="deletesyndromeinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteSyndromeInput
+            </a>
+        </li>
+        <li  title="ModelArticleConditionInput">
+            <a href="modelarticleconditioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelArticleConditionInput
+            </a>
+        </li>
+        <li  title="ModelArticleFilterInput">
+            <a href="modelarticlefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelArticleFilterInput
+            </a>
+        </li>
+        <li  title="ModelBooleanInput">
+            <a href="modelbooleaninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelBooleanInput
+            </a>
+        </li>
+        <li  title="ModelDiseaseConditionInput">
+            <a href="modeldiseaseconditioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelDiseaseConditionInput
+            </a>
+        </li>
+        <li  title="ModelDiseaseFilterInput">
+            <a href="modeldiseasefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelDiseaseFilterInput
+            </a>
+        </li>
+        <li  title="ModelFloatInput">
+            <a href="modelfloatinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelFloatInput
+            </a>
+        </li>
+        <li  title="ModelIDInput">
+            <a href="modelidinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelIDInput
+            </a>
+        </li>
+        <li  title="ModelIntInput">
+            <a href="modelintinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelIntInput
+            </a>
+        </li>
+        <li  title="ModelLocationConditionInput">
+            <a href="modellocationconditioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelLocationConditionInput
+            </a>
+        </li>
+        <li  title="ModelLocationFilterInput">
+            <a href="modellocationfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelLocationFilterInput
+            </a>
+        </li>
+        <li  title="ModelReportConditionInput">
+            <a href="modelreportconditioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelReportConditionInput
+            </a>
+        </li>
+        <li  title="ModelReportFilterInput">
+            <a href="modelreportfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelReportFilterInput
+            </a>
+        </li>
+        <li  title="ModelSizeInput">
+            <a href="modelsizeinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelSizeInput
+            </a>
+        </li>
+        <li  title="ModelStringInput">
+            <a href="modelstringinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelStringInput
+            </a>
+        </li>
+        <li  title="ModelSyndromeConditionInput">
+            <a href="modelsyndromeconditioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelSyndromeConditionInput
+            </a>
+        </li>
+        <li  title="ModelSyndromeFilterInput">
+            <a href="modelsyndromefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ModelSyndromeFilterInput
+            </a>
+        </li>
+        <li  title="UpdateArticleInput">
+            <a href="updatearticleinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateArticleInput
+            </a>
+        </li>
+        <li  title="UpdateDiseaseInput">
+            <a href="updatediseaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateDiseaseInput
+            </a>
+        </li>
+        <li  title="UpdateLocationInput">
+            <a href="updatelocationinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateLocationInput
+            </a>
+        </li>
+        <li  title="UpdateReportInput">
+            <a href="updatereportinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateReportInput
+            </a>
+        </li>
+        <li  title="UpdateSyndromeInput">
+            <a href="updatesyndromeinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateSyndromeInput
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
+    <ul>
+        <li  title="aws_api_key">
+            <a href="aws_api_key.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                aws_api_key
+            </a>
+        </li>
+        <li  title="aws_auth">
+            <a href="aws_auth.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                aws_auth
+            </a>
+        </li>
+        <li  title="aws_cognito_user_pools">
+            <a href="aws_cognito_user_pools.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                aws_cognito_user_pools
+            </a>
+        </li>
+        <li  title="aws_iam">
+            <a href="aws_iam.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                aws_iam
+            </a>
+        </li>
+        <li  title="aws_oidc">
+            <a href="aws_oidc.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                aws_oidc
+            </a>
+        </li>
+        <li  title="aws_subscribe">
+            <a href="aws_subscribe.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                aws_subscribe
+            </a>
+        </li>
+        <li  title="deprecated">
+            <a href="deprecated.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                deprecated
+            </a>
+        </li>
+        <li  title="include">
+            <a href="include.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                include
+            </a>
+        </li>
+        <li  title="skip">
+            <a href="skip.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                skip
+            </a>
+        </li>
+    </ul>
+</div>
+        </div>
+    </nav>
+    <main><section class="title slds-theme--inverse">
+    <div class="container slds-grid">
+        <div>
+        <button class="slds-button js-toggle-navigation less-than-medium">
+            <i class="material-icons slds-button__icon slds-button__icon--left">menu</i>
+            <span class="slds-text-title--caps">Types<span>
+        </button>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="slds-text-title--caps slds-text-color--weak">OBJECT</p>
+        <h1 class="slds-text-heading--large">ModelSyndromeConnection</h1>
+        <div class="slds-text-body--regular"></div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="graphql-schema-definition" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#graphql-schema-definition">
+                <i class="material-icons">link</i>
+            </a>
+            GraphQL Schema definition
+        </h2>
+        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">type</span> <span class="identifier">ModelSyndromeConnection</span> {</li><li></li><li><span class="tab"><span class="meta">items</span>: [<a class="support type" href="syndrome.doc.html">Syndrome</a>] </span></li><li></li><li><span class="tab"><span class="meta">nextToken</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">startedAt</span>: <a class="support type" href="awstimestamp.doc.html">AWSTimestamp</a> </span></li><li>}</li></ul></code>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="require-by" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#require-by">
+                <i class="material-icons">link</i>
+            </a>
+            Require by
+        </h2>
+        <ul class="require-by"><li><a href="query.doc.html" title="Query - ">Query<em></em></a><li><li><a href="report.doc.html" title="Report - ">Report<em></em></a><li></ul>
+    </div>
+</section>
+<footer>
+<div class="container slds-p-around--large">
+    <p class="slds-text-align--right slds-text-title--caps">
+        Generated with <a href="https://github.com/2fd/graphdoc#readme" target="_blank">graphdoc 2.4.0</a>
+    </p>
+</div>
+</footer>
+</main>
+    <script src="./scripts/focus-active.js"></script>
+    <script src="./scripts/filter-types.js"></script>
+    <script src="./scripts/toggle-navigation.js"></script>
+</body>
