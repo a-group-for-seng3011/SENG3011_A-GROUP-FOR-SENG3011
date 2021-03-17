@@ -1,6 +1,6 @@
 import scrapy
 import mymerpy
-# import spacy
+import spacy
 # import scispacy
 import en_ner_bc5cdr_md
 import wikipedia
@@ -12,9 +12,9 @@ def find_location(content):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(content)
     #combine text with its label
-    ​label = {}
+    labl={}
     for token in doc.ents:
-        label[token.text] = token.label_
+        labl[token.text] = token.label_
     # combine text with its lemma
     lemma = {}
     for token in doc_bc:
@@ -22,7 +22,7 @@ def find_location(content):
 
     gpe =[]
     location=[]
-    for wrd,lbl in label.items():
+    for wrd,lbl in labl.items():
         if lbl == "GPE":
             gpe.append(wrd)
             
@@ -35,29 +35,29 @@ def find_location(content):
     #         location = wrd
     return location
 
-def find_country(content):
-    nlp = spacy.load("en_core_web_sm")
-    doc = nlp(content)
-    #combine text with its label
-    ​label = {}
-    for token in doc.ents:
-        label[token.text] = token.label_
-    # combine text with its lemma
-    lemma = {}
-    for token in doc_bc:
-        lemma[token.text] = token.lemma_
+# def find_country(content):
+#     nlp = spacy.load("en_core_web_sm")
+#     doc = nlp(content)
+#     #combine text with its label
+#     ​label = {}
+#     for token in doc.ents:
+#         label[token.text] = token.label_
+#     # combine text with its lemma
+#     lemma = {}
+#     for token in doc_bc:
+#         lemma[token.text] = token.lemma_
 
-    gpe =[]
-    country=[]
-    for wrd,lbl in label.items():
-        if lbl == "GPE":
-            gpe.append(wrd)
+#     gpe =[]
+#     country=[]
+#     for wrd,lbl in label.items():
+#         if lbl == "GPE":
+#             gpe.append(wrd)
             
-    for text in gpe:
-        summary = str(wikipedia.summary(text))
-        if ('country' in summary):
-            country.append(text)
-    return country
+#     for text in gpe:
+#         summary = str(wikipedia.summary(text))
+#         if ('country' in summary):
+#             country.append(text)
+#     return country
 
 
 def find_syndromes(diseases, content):
@@ -127,9 +127,9 @@ class APISpider(scrapy.Spider):
             url = link.get()
             if url:
                 yield response.follow(url=url, callback=self.parse_article)
-        next_page = response.css('a.next.page-numbers').attrib['href']
-        if next_page is not None:
-            yield response.follow(next_page, callback=self.parse)
+        # next_page = response.css('a.next.page-numbers').attrib['href']
+        # if next_page is not None:
+        #     yield response.follow(next_page, callback=self.parse)
     
     def parse_article(self, response):
         url = response.url
@@ -178,8 +178,8 @@ class APISpider(scrapy.Spider):
         # location item
         locationItem["country"] = "<country>"
         #locationItem["country"] = find_country(main_text)
-        locationItem["location"] = "<location>"
-        #locationItem["location"]=find_location(main_text)
+        # locationItem["location"] = "<location>"
+        locationItem["location"]=find_location(main_text)
         # report item
         reportItem["diseases"] = di_str
         # reportItem["syndromes"] = find_syndromes(di_str, main_text)
