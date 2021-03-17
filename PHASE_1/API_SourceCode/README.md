@@ -2,7 +2,7 @@
 Set up a virtual environment outside our project folder and activate it
 ```bash
 python3 -m venv seng3011venv
-source seng3011venv/bin/activate
+source <path-to-seng3011venv/bin/activate>
 ```
 You can diactivate the virtual environment anytime in any folder by the following instruction
 ```bash
