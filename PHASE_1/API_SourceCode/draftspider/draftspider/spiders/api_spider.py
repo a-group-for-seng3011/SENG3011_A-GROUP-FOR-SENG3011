@@ -3,9 +3,62 @@ import mymerpy
 # import spacy
 # import scispacy
 import en_ner_bc5cdr_md
+import wikipedia
 
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
+
+def find_location(content):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(content)
+    #combine text with its label
+    ​label = {}
+    for token in doc.ents:
+        label[token.text] = token.label_
+    # combine text with its lemma
+    lemma = {}
+    for token in doc_bc:
+        lemma[token.text] = token.lemma_
+
+    gpe =[]
+    location=[]
+    for wrd,lbl in label.items():
+        if lbl == "GPE":
+            gpe.append(wrd)
+            
+    for text in gpe:
+        summary = str(wikipedia.summary(text))
+        if ('city' in summary):
+            location.append(text)
+    # elif ('country' in summary):
+    #     countries.append(text)
+    #         location = wrd
+    return location
+
+def find_country(content):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(content)
+    #combine text with its label
+    ​label = {}
+    for token in doc.ents:
+        label[token.text] = token.label_
+    # combine text with its lemma
+    lemma = {}
+    for token in doc_bc:
+        lemma[token.text] = token.lemma_
+
+    gpe =[]
+    country=[]
+    for wrd,lbl in label.items():
+        if lbl == "GPE":
+            gpe.append(wrd)
+            
+    for text in gpe:
+        summary = str(wikipedia.summary(text))
+        if ('country' in summary):
+            country.append(text)
+    return country
+
 
 def find_syndromes(diseases, content):
     diseases_list = diseases.split(',')
@@ -124,7 +177,9 @@ class APISpider(scrapy.Spider):
         locationItem = LocationItem()
         # location item
         locationItem["country"] = "<country>"
+        #locationItem["country"] = find_country(main_text)
         locationItem["location"] = "<location>"
+        #locationItem["location"]=find_location(main_text)
         # report item
         reportItem["diseases"] = di_str
         # reportItem["syndromes"] = find_syndromes(di_str, main_text)
