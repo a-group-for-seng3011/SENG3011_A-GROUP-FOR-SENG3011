@@ -27,3 +27,5 @@
 
 * URL: https://xjbexovx7fde7h6hfggtike5ey.appsync-api.ap-southeast-2.amazonaws.com/graphql
 * Headers `x-api-key: da2-jzokeb4pi5bfnjgd3s5ihjemmq`
+
+To interactively test the endpoint, please use https://altair-gql.sirmuel.design/ setting the header in the left navigation bar. 
