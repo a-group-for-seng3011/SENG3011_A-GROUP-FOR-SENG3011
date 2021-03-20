@@ -1,6 +1,7 @@
 # SENG3011_A-GROUP-FOR-SENG3011
-## Deliverable 1
-**Github repository structured as follows:**
+
+## Github repository structure**
+
 ```bash
 ├── SENG3011_A-GROUP-FOR-SENG3011
 │   ├── README.MD
@@ -17,4 +18,12 @@
 │   │   ├── Testing Documentation
 │   │   ├── Final Report
 ```
-Deliverable 1 includes a report of design details under `Reports/Design Details.pdf` and management related information under `Reports/Management Information.pdf`.
+
+## API Documentation
+
+* URL: http://amplify-outbreaknewstoday-doc.s3-website-ap-southeast-2.amazonaws.com/
+
+## Prod API Endpoint
+
+* URL: https://xjbexovx7fde7h6hfggtike5ey.appsync-api.ap-southeast-2.amazonaws.com/graphql
+* Headers `x-api-key: da2-jzokeb4pi5bfnjgd3s5ihjemmq`
