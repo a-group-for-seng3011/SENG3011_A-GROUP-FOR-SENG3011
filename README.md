@@ -1,6 +1,6 @@
 # SENG3011_A-GROUP-FOR-SENG3011
 
-## Github repository structure**
+## Github repository structure
 
 ```bash
 ├── SENG3011_A-GROUP-FOR-SENG3011
