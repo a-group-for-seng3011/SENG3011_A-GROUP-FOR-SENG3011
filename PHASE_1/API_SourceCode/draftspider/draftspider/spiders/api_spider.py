@@ -12,16 +12,16 @@ def find_location(content):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(content)
     #combine text with its label
-    labl={}
+    labl = {}
     for token in doc.ents:
         labl[token.text] = token.label_
     # combine text with its lemma
     lemma = {}
-    for token in doc_bc:
+    for token in doc:
         lemma[token.text] = token.lemma_
 
-    gpe =[]
-    location=[]
+    gpe = []
+    location = []
     for wrd,lbl in labl.items():
         if lbl == "GPE":
             gpe.append(wrd)
@@ -178,8 +178,8 @@ class APISpider(scrapy.Spider):
         # location item
         locationItem["country"] = "<country>"
         #locationItem["country"] = find_country(main_text)
-        # locationItem["location"] = "<location>"
-        locationItem["location"]=find_location(main_text)
+        locationItem["location"] = "<location>"
+        # locationItem["location"]=find_location(main_text)
         # report item
         reportItem["diseases"] = di_str
         # reportItem["syndromes"] = find_syndromes(di_str, main_text)
