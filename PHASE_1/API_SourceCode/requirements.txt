@@ -12,7 +12,6 @@ constantly==15.1.0
 cryptography==3.4.6
 cssselect==1.1.0
 cymem==2.0.5
-dnspython==2.1.0
 docker==4.4.4
 en-core-sci-sm @ https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.4.0/en_core_sci_sm-0.4.0.tar.gz
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
@@ -47,7 +46,6 @@ pycparser==2.20
 pydantic==1.7.3
 PyDispatcher==2.0.5
 PyGObject==3.38.0
-pymongo==3.11.3
 pyOpenSSL==20.0.1
 pyparsing==2.4.7
 pysbd==0.3.4
