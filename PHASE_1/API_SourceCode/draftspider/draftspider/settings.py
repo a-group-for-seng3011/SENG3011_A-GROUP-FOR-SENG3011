@@ -65,6 +65,14 @@ ROBOTSTXT_OBEY = True
 #ITEM_PIPELINES = {
 #    'draftspider.pipelines.DraftspiderPipeline': 300,
 #}
+ITEM_PIPELINES = {
+    'draftspider.pipelines.MongoDBPipeline': 300,
+}
+
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = 'outbreaknews'
+MONGODB_COLLECTION = "sets"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

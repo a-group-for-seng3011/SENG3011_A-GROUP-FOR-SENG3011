@@ -7,48 +7,71 @@ certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
 click==7.1.2
+conllu==4.4
 constantly==15.1.0
 cryptography==3.4.6
 cssselect==1.1.0
 cymem==2.0.5
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
+dnspython==2.1.0
+docker==4.4.4
+en-core-sci-sm @ https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.4.0/en_core_sci_sm-0.4.0.tar.gz
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
 en-ner-bc5cdr-md @ https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.4.0/en_ner_bc5cdr_md-0.4.0.tar.gz
 hyperlink==21.0.0
 idna==2.10
 importlib-metadata==3.7.3
 incremental==21.3.0
+inflect==5.3.0
 itemadapter==0.2.0
 itemloaders==1.0.4
 Jinja2==2.11.3
 jmespath==0.10.0
+joblib==1.0.1
 lxml==4.6.2
 MarkupSafe==1.1.1
 murmurhash==1.0.5
--e git+https://github.com/a-group-for-seng3011/mymerpy.git@master#egg=mymerpy
+-e git+https://github.com/a-group-for-seng3011/mymerpy.git@6af98938cfe52e23bd2b8c2eae12727849c74ea7#egg=mymerpy
+nmslib==2.1.1
 numpy==1.20.1
 packaging==20.9
 parsel==1.6.0
 pathy==0.4.0
 preshed==3.0.5
 Protego==0.1.16
+psutil==5.8.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
+pybind11==2.6.1
+pycairo==1.20.0
 pycparser==2.20
 pydantic==1.7.3
 PyDispatcher==2.0.5
+PyGObject==3.38.0
+pymongo==3.11.3
 pyOpenSSL==20.0.1
 pyparsing==2.4.7
+pysbd==0.3.4
+PyYAML==5.4.1
 queuelib==1.5.0
 requests==2.25.1
+retrying==1.3.3
+scikit-learn==0.24.1
+scipy==1.6.1
+scispacy==0.4.0
+scrapinghub==2.3.1
 Scrapy==2.4.1
 service-identity==18.1.0
+shub==2.13.0
 six==1.15.0
 smart-open==3.0.0
 soupsieve==2.2
 spacy==3.0.5
 spacy-legacy==3.0.1
+spacy-lookups-data==1.0.0
 srsly==2.4.0
 thinc==8.0.2
+threadpoolctl==2.1.0
+toml==0.10.2
 tqdm==4.59.0
 Twisted==21.2.0
 typer==0.3.2
@@ -56,6 +79,7 @@ typing-extensions==3.7.4.3
 urllib3==1.26.4
 w3lib==1.22.0
 wasabi==0.8.2
+websocket-client==0.58.0
 wikipedia==1.4.0
 zipp==3.4.1
 zope.interface==5.2.0
