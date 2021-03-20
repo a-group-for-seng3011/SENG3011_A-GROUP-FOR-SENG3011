@@ -1,0 +1,28 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-outbreaknewstoday-prod-84140-authRole",
+      "UnauthRoleArn": "arn:aws:iam::968083395902:role/amplify-outbreaknewstoday-prod-84140-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::968083395902:role/amplify-outbreaknewstoday-prod-84140-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-outbreaknewstoday-prod-84140-deployment",
+      "UnauthRoleName": "amplify-outbreaknewstoday-prod-84140-unauthRole",
+      "StackName": "amplify-outbreaknewstoday-prod-84140",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:968083395902:stack/amplify-outbreaknewstoday-prod-84140/17aa5ba0-8958-11eb-8520-0619e43c3754",
+      "AmplifyAppId": "dgsowgwnj3w5k"
+    }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify8dd6c52ea2c34-staging-82330-authRole",
+      "UnauthRoleArn": "arn:aws:iam::968083395902:role/amplify-amplify8dd6c52ea2c34-staging-82330-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::968083395902:role/amplify-amplify8dd6c52ea2c34-staging-82330-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-amplify8dd6c52ea2c34-staging-82330-deployment",
+      "UnauthRoleName": "amplify-amplify8dd6c52ea2c34-staging-82330-unauthRole",
+      "StackName": "amplify-amplify8dd6c52ea2c34-staging-82330",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:968083395902:stack/amplify-amplify8dd6c52ea2c34-staging-82330/8dabe3d0-8955-11eb-b5b9-0acf4947d5c2",
+      "AmplifyAppId": "dgsowgwnj3w5k"
+    }
+  }
+}
