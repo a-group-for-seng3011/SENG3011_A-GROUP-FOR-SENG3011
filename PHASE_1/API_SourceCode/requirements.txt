@@ -25,6 +25,7 @@ lxml==4.6.2
 MarkupSafe==1.1.1
 murmurhash==1.0.5
 -e git+https://github.com/a-group-for-seng3011/mymerpy.git@master#egg=mymerpy
+nmslib==2.1.1
 numpy==1.20.1
 packaging==20.9
 parsel==1.6.0
