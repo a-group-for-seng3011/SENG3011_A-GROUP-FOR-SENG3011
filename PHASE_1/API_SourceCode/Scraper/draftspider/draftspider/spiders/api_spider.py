@@ -150,7 +150,7 @@ class APISpider(scrapy.Spider):
         text = [
             ' '.join(
                 line.strip() 
-                for line in p.xpath('.//text()').extract() 
+                for line in p.xpath('.//text()[not(parent::script)]').extract() 
                 if line.strip()
             ) 
             for p in response.xpath('//div[@class="postcontent"]/p')
