@@ -2,6 +2,112 @@ import scrapy
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
 
+def find_location(content):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(content)
+    #combine text with its label
+    labl = {}
+    for token in doc.ents:
+        labl[token.text] = token.label_
+    # combine text with its lemma
+    lemma = {}
+    for token in doc:
+        lemma[token.text] = token.lemma_
+
+    gpe = []
+    location = []
+    for wrd,lbl in labl.items():
+        if lbl == "GPE":
+            gpe.append(wrd)
+            
+    for text in gpe:
+        summary = str(wikipedia.summary(text))
+        if ('city' in summary):
+            location.append(text)
+    return location
+
+def find_country(content):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(content)
+    #combine text with its label
+    ​label = {}
+    for token in doc.ents:
+        label[token.text] = token.label_
+    # combine text with its lemma
+    lemma = {}
+    for token in doc:
+        lemma[token.text] = token.lemma_
+
+    gpe =[]
+    country=[]
+    for wrd,lbl in label.items():
+        if lbl == "GPE":
+            gpe.append(wrd)
+            
+    for text in gpe:
+        summary = str(wikipedia.summary(text))
+        if ('country' in summary):
+            country.append(text)
+    return country
+
+
+def find_syndromes(diseases, content):
+    diseases_list = diseases.split(',')
+    # nlp_web_sm = spacy.load('en_core_web_sm')
+    nlp_bc = en_ner_bc5cdr_md.load()
+    # doc_web_sm = nlp_web_sm(content)
+    doc_bc = nlp_bc(content)
+
+    # combine text with its label
+    label = {}
+    for token in doc_bc.ents:
+        label[token.text] = token.label_
+    # combine text with its pos
+    pos = {}
+    for token in doc_bc:
+        pos[token.text] = token.pos_
+    # combine text with its lemma
+    lemma = {}
+    for token in doc_bc:
+        lemma[token.text] = token.lemma_
+
+    
+    syndromes = []
+    for k, v in label.items():
+        if v == "DISEASE":
+            li = k.split(" ")
+            noun = 0
+            adj = 0
+            adp = 0
+            if li[-1].lower() == "coronavirus":
+                continue
+            for c in li:
+                if "CoV" in c:
+                    break
+                if c.isupper():
+                    break
+                if lemma[c] != c:
+                    break
+                if "disease" in c:
+                    break
+                if c in diseases_list:
+                    break
+
+                if pos.get(c) == "ADJ":
+                    adj += 1
+                elif pos.get(c) == "NOUN":
+                    noun += 1
+                # "of" case
+                elif pos.get(c) == "ADP":
+                    adp += 1
+            if adj == 0 and noun >= 1:
+                syndromes.append(k)
+            elif adj == 1 and (noun >= 1 and noun <= 2):
+                syndromes.append(k)
+            elif adj == 0 and noun >= 1 and adp >= 1:
+                syndromes.append(k)
+    return syndromes
+
 class APISpider(scrapy.Spider):
     name = 'api'
     start_urls = ['http://outbreaknewstoday.com/category/headlines/']
