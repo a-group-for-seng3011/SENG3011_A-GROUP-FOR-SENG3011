@@ -3,4 +3,5 @@
 **/.vscode/
 **/.DS_Store
 **/venv
-**/testfile.json
+**/test*.json
+**/api.json

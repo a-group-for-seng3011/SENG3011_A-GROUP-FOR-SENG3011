@@ -1,124 +1,6 @@
 import scrapy
-import mymerpy
-import spacy
-# import scispacy
-import en_ner_bc5cdr_md
-# import wikipedia
-
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
-
-import gc
-
-def find_location(content):
-    nlp = spacy.load("en_core_web_sm")
-    doc = nlp(content)
-    #combine text with its label
-    labl = {}
-    for token in doc.ents:
-        labl[token.text] = token.label_
-    # combine text with its lemma
-    lemma = {}
-    for token in doc:
-        lemma[token.text] = token.lemma_
-
-    gpe = []
-    location = []
-    for wrd,lbl in labl.items():
-        if lbl == "GPE":
-            gpe.append(wrd)
-            
-    for text in gpe:
-        summary = str(wikipedia.summary(text))
-        if ('city' in summary):
-            location.append(text)
-    # elif ('country' in summary):
-    #     countries.append(text)
-    #         location = wrd
-    return location
-
-# def find_country(content):
-#     nlp = spacy.load("en_core_web_sm")
-#     doc = nlp(content)
-#     #combine text with its label
-#     ​label = {}
-#     for token in doc.ents:
-#         label[token.text] = token.label_
-#     # combine text with its lemma
-#     lemma = {}
-#     for token in doc_bc:
-#         lemma[token.text] = token.lemma_
-
-#     gpe =[]
-#     country=[]
-#     for wrd,lbl in label.items():
-#         if lbl == "GPE":
-#             gpe.append(wrd)
-            
-#     for text in gpe:
-#         summary = str(wikipedia.summary(text))
-#         if ('country' in summary):
-#             country.append(text)
-#     return country
-
-
-def find_syndromes(diseases, content):
-    diseases_list = diseases.split(',')
-    # nlp_web_sm = spacy.load('en_core_web_sm')
-    nlp_bc = en_ner_bc5cdr_md.load()
-    # doc_web_sm = nlp_web_sm(content)
-    doc_bc = nlp_bc(content)
-
-    # combine text with its label
-    label = {}
-    for token in doc_bc.ents:
-        label[token.text] = token.label_
-    # combine text with its pos
-    pos = {}
-    for token in doc_bc:
-        pos[token.text] = token.pos_
-    # combine text with its lemma
-    lemma = {}
-    for token in doc_bc:
-        lemma[token.text] = token.lemma_
-
-    
-    syndromes = []
-    for k, v in label.items():
-        if v == "DISEASE":
-            li = k.split(" ")
-            noun = 0
-            adj = 0
-            adp = 0
-            if li[-1].lower() == "coronavirus":
-                continue
-            for c in li:
-                if "CoV" in c:
-                    break
-                if c.isupper():
-                    break
-                if lemma[c] != c:
-                    break
-                if "disease" in c:
-                    break
-                if c in diseases_list:
-                    break
-
-                if pos.get(c) == "ADJ":
-                    adj += 1
-                elif pos.get(c) == "NOUN":
-                    noun += 1
-                # "of" case
-                elif pos.get(c) == "ADP":
-                    adp += 1
-            if adj == 0 and noun >= 1:
-                syndromes.append(k)
-            elif adj == 1 and (noun >= 1 and noun <= 2):
-                syndromes.append(k)
-            elif adj == 0 and noun >= 1 and adp >= 1:
-                syndromes.append(k)
-    gc.collect()
-    return syndromes
 
 class APISpider(scrapy.Spider):
     name = 'api'
@@ -134,9 +16,9 @@ class APISpider(scrapy.Spider):
             url = link.get()
             if url:
                 yield response.follow(url=url, callback=self.parse_article)
-        next_page = response.css('a.next.page-numbers').attrib['href']
-        if next_page is not None:
-            yield response.follow(next_page, callback=self.parse)
+        # next_page = response.css('a.next.page-numbers').attrib['href']
+        # if next_page is not None:
+        #     yield response.follow(next_page, callback=self.parse)
     
     def parse_article(self, response):
         url = response.url
@@ -150,7 +32,6 @@ class APISpider(scrapy.Spider):
 
         # extract information for article object
         headline = response.xpath('//title/text()').get()
-        # content = response.css('div.postcontent p::text').getall()[1:-1]
         text = [
             ' '.join(
                 line.strip() 
@@ -167,44 +48,23 @@ class APISpider(scrapy.Spider):
         # TODO: also need to remove the headline of other articles inside the main_text
         main_text = ' '.join(text_list)
 
-        # TODO: move data processing to pipeline
-        # find_syndromes() cannot run because of exhaustion of memory
-        # integrate NLP tool to examine the headline
-        # extract diseases
-        di_str_hl = di_str_ct = "<diseases>"
-        di_meta_hl = mymerpy.get_entities(headline, "doid")
-        di_meta_ct = mymerpy.get_entities(main_text, "doid")
-
-        if di_meta_ct != [['']]:
-            di_list_ct = [ sublist[2] for sublist in di_meta_ct ]
-            di_str_ct = ','.join(list(set(di_list_ct)))
-
-        if di_meta_hl != [['']]:
-            di_list_hl = [ sublist[2] for sublist in di_meta_hl ]
-            di_str_hl = ','.join(list(set(di_list_hl)))
-        else:
-            di_str_hl = di_str_ct
-
         # placeholders for internal objects
         articleItem = ArticleItem()
         reportItem = ReportItem()
         locationItem = LocationItem()
         # location item
         locationItem["country"] = "<country>"
-        #locationItem["country"] = find_country(main_text)
         locationItem["location"] = "<location>"
-        # locationItem["location"]=find_location(main_text)
         # report item
-        reportItem["diseases"] = di_str_hl
-        # reportItem["syndromes"] = find_syndromes(di_str, main_text)
-        reportItem["syndromes"] = "<syndromes>"
+        reportItem["diseases"] = ["<diseases>"]
+        reportItem["syndromes"] = ["<syndromes>"]
         reportItem["event_date"] = date_of_publication
-        reportItem["location"] = [dict(locationItem)]
+        reportItem["locations"] = [locationItem]
         # article item
         articleItem["url"] = url
         articleItem["date_of_publication"] = date_of_publication
         articleItem["headline"] = headline
         articleItem["main_text"] = main_text
-        articleItem["report"] = [dict(reportItem)]
+        articleItem["reports"] = [reportItem]
 
         yield articleItem

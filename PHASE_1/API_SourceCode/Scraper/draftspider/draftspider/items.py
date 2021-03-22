@@ -13,13 +13,13 @@ class ArticleItem(scrapy.Item):
     date_of_publication = scrapy.Field()
     headline = scrapy.Field()
     main_text = scrapy.Field()
-    report = scrapy.Field()
+    reports = scrapy.Field()
 
 class ReportItem(scrapy.Item):
     diseases = scrapy.Field()
     syndromes = scrapy.Field()
     event_date = scrapy.Field()
-    location = scrapy.Field()
+    locations = scrapy.Field()
 
 class LocationItem(scrapy.Item):
     country = scrapy.Field()
