@@ -8,6 +8,8 @@ import wikipedia
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
 
+import gc
+
 def find_location(content):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(content)
@@ -115,6 +117,7 @@ def find_syndromes(diseases, content):
                 syndromes.append(k)
             elif adj == 0 and noun >= 1 and adp >= 1:
                 syndromes.append(k)
+    gc.collect()
     return syndromes
 
 class APISpider(scrapy.Spider):
@@ -127,9 +130,9 @@ class APISpider(scrapy.Spider):
             url = link.get()
             if url:
                 yield response.follow(url=url, callback=self.parse_article)
-        # next_page = response.css('a.next.page-numbers').attrib['href']
-        # if next_page is not None:
-        #     yield response.follow(next_page, callback=self.parse)
+        next_page = response.css('a.next.page-numbers').attrib['href']
+        if next_page is not None:
+            yield response.follow(next_page, callback=self.parse)
     
     def parse_article(self, response):
         url = response.url
@@ -159,7 +162,6 @@ class APISpider(scrapy.Spider):
         text_list.pop(0)
         # TODO: also need to remove the headline of other articles inside the main_text
         main_text = ' '.join(text_list)
-        report = '[<object::report>]'
 
         # TODO: move data processing to pipeline
         # find_syndromes() cannot run because of exhaustion of memory
@@ -182,8 +184,8 @@ class APISpider(scrapy.Spider):
         # locationItem["location"]=find_location(main_text)
         # report item
         reportItem["diseases"] = di_str
-        # reportItem["syndromes"] = find_syndromes(di_str, main_text)
-        reportItem["syndromes"] = "<syndromes>"
+        reportItem["syndromes"] = find_syndromes(di_str, main_text)
+        # reportItem["syndromes"] = "<syndromes>"
         reportItem["event_date"] = date_of_publication
         reportItem["location"] = [dict(locationItem)]
         # article item
