@@ -3,7 +3,7 @@ import mymerpy
 import spacy
 # import scispacy
 import en_ner_bc5cdr_md
-import wikipedia
+# import wikipedia
 
 from ..items import ArticleItem, ReportItem, LocationItem
 from datetime import datetime
@@ -123,6 +123,10 @@ def find_syndromes(diseases, content):
 class APISpider(scrapy.Spider):
     name = 'api'
     start_urls = ['http://outbreaknewstoday.com/category/headlines/']
+    custom_settings = {
+        "DOWNLOAD_DELAY": 2, # in case some websites prevent scraping if the time between request is too small
+        "RETRY_ENABLED": True,
+    }
 
     def parse(self, response):
         article_links = response.css('div.posttitle a ::attr(href)')
@@ -167,11 +171,19 @@ class APISpider(scrapy.Spider):
         # find_syndromes() cannot run because of exhaustion of memory
         # integrate NLP tool to examine the headline
         # extract diseases
-        di_str = "<diseases>"
-        di_meta = mymerpy.get_entities(headline, "doid")
-        if di_meta != [['']]:
-            di_list = [ sublist[2] for sublist in di_meta ]
-            di_str = ','.join(list(set(di_list)))
+        di_str_hl = di_str_ct = "<diseases>"
+        di_meta_hl = mymerpy.get_entities(headline, "doid")
+        di_meta_ct = mymerpy.get_entities(main_text, "doid")
+
+        if di_meta_ct != [['']]:
+            di_list_ct = [ sublist[2] for sublist in di_meta_ct ]
+            di_str_ct = ','.join(list(set(di_list_ct)))
+
+        if di_meta_hl != [['']]:
+            di_list_hl = [ sublist[2] for sublist in di_meta_hl ]
+            di_str_hl = ','.join(list(set(di_list_hl)))
+        else:
+            di_str_hl = di_str_ct
 
         # placeholders for internal objects
         articleItem = ArticleItem()
@@ -183,9 +195,9 @@ class APISpider(scrapy.Spider):
         locationItem["location"] = "<location>"
         # locationItem["location"]=find_location(main_text)
         # report item
-        reportItem["diseases"] = di_str
-        reportItem["syndromes"] = find_syndromes(di_str, main_text)
-        # reportItem["syndromes"] = "<syndromes>"
+        reportItem["diseases"] = di_str_hl
+        # reportItem["syndromes"] = find_syndromes(di_str, main_text)
+        reportItem["syndromes"] = "<syndromes>"
         reportItem["event_date"] = date_of_publication
         reportItem["location"] = [dict(locationItem)]
         # article item
