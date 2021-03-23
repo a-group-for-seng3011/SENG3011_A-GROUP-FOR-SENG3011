@@ -32,21 +32,15 @@ class APISpider(scrapy.Spider):
 
         # extract information for article object
         headline = response.xpath('//title/text()').get()
-        text = [
-            ' '.join(
-                line.strip()
-                for line in p.xpath('.//text()[not(parent::script)]').extract() 
-                if line.strip()
-            ) 
-            for p in response.xpath('//div[@class="postcontent"]/p').getall()
-        ]
-        text_list = []
-        for elem in text:
-            if elem != '':
-                text_list.append(elem)
-        text_list.pop(0)
-        # TODO: also need to remove the headline of other articles inside the main_text
-        main_text = ' '.join(text_list)
+        text_dirty = response.xpath('//div[@class="postcontent"]/*[self::p or self::ul or self::h3]//text()[not(parent::script)][not(parent::a/parent::strong)][not(parent::a[@href]/parent::*[not(text())])][not(parent::strong/parent::a/parent::*[not(text())])][not(parent::strong/parent::em/parent::a[not(text())])]').getall()
+        # trim white spaces, \xA0 and new line characters for every element in list
+        text_list = [ piece.strip().replace('\xA0', ' ') for piece in text_dirty if piece.strip()]
+        text_clean = []
+        for piece in text_list:
+            # remove empty strings and author text
+            if piece == '' or piece == 'By NewsDesk' or piece == '@bactiman63':
+                continue
+            text_clean.append(piece)
 
         # placeholders for internal objects
         articleItem = ArticleItem()
@@ -64,7 +58,7 @@ class APISpider(scrapy.Spider):
         articleItem["url"] = url
         articleItem["date_of_publication"] = date_of_publication
         articleItem["headline"] = headline
-        articleItem["main_text"] = main_text
+        articleItem["main_text"] = ' '.join(text_clean)
         articleItem["reports"] = [reportItem]
 
         yield articleItem

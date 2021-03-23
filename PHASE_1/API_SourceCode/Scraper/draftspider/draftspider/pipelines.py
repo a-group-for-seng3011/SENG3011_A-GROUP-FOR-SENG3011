@@ -13,6 +13,7 @@ from items import ArticleItem, ReportItem, LocationItem
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from .items import ArticleItem, ReportItem, LocationItem
 
 # integrate stream editing tools to examine the headline and extract diseases
 class DiseaseExtractionPipeline:
