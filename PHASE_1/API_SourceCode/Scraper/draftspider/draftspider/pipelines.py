@@ -6,8 +6,11 @@
 import mymerpy
 import spacy
 import en_ner_bc5cdr_md
+from geopy.geocoders import Nominatim
 import gc
 import wikipedia
+from items import ArticleItem, ReportItem, LocationItem
+
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
@@ -110,15 +113,15 @@ class LocationExtractionPipeline:
             if ('country' in summary):
                 country.append(text)
 
-        # elif ('country' in summary):
-        #     countries.append(text)
-        #         location = wrd
+        if len(location) > 0:
+            geolocator = Nominatim(user_agent = "geoapiExercises")
+            cntry = geolocator.geocode(location[0])
     
         # TODO: it's not complete, isn't it? 
         # locations --(1)--------(n)-- locationItem, which means locations = [locationItem1, locationItem2, ...]
         # locationItem = { country:<string>, location: <string> }
         # TODO: your code here is for the 'location' attribute of a locationItem, it should be **a string** rather than a list
-        item['reports'][0]['locations'][0]['location'] = location # TODO: why is this a list? or what does it stand for if you think it should be a list?
+        item['reports'][0]['locations'][0]['location'] = location[0] # TODO: why is this a list? or what does it stand for if you think it should be a list?
         # TODO: your code here is for the 'country' attribute of a locationItem, it should be **a string** rather than a list
-        item['reports'][0]['locations'][0]['country'] = country # TODO: why is this a list? or what does it stand for if you think it should be a list?
+        item['reports'][0]['locations'][0]['country'] = cntry # TODO: why is this a list? or what does it stand for if you think it should be a list?
         return item
