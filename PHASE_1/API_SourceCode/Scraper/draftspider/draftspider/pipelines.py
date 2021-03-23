@@ -35,20 +35,19 @@ class SyndromeExtractionPipeline:
     def process_item(self, item, spider):
         diseases_list =  item['reports'][0]['diseases']
         nlp_bc = en_ner_bc5cdr_md.load()
-        doc_bc = nlp_bc(item['main_text'])
-
-        # combine text with its label
-        label = {}
-        for token in doc_bc.ents:
-            label[token.text] = token.label_
-        # combine text with its pos
-        pos = {}
-        for token in doc_bc:
-            pos[token.text] = token.pos_
-        # combine text with its lemma
-        lemma = {}
-        for token in doc_bc:
-            lemma[token.text] = token.lemma_
+        for doc_bc in nlp_bc.pipe(item['main_text']):
+            # combine text with its label
+            label = {}
+            for token in doc_bc.ents:
+                label[token.text] = token.label_
+            # combine text with its pos
+            pos = {}
+            for token in doc_bc:
+                pos[token.text] = token.pos_
+            # combine text with its lemma
+            lemma = {}
+            for token in doc_bc:
+                lemma[token.text] = token.lemma_
 
         syndromes = []
         for k, v in label.items():
