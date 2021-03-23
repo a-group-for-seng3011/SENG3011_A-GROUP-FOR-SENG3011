@@ -6,10 +6,9 @@
 import mymerpy
 import spacy
 import en_ner_bc5cdr_md
-from geopy.geocoders import Nominatim
+# from geopy.geocoders import Nominatim
 import gc
 import wikipedia
-from items import ArticleItem, ReportItem, LocationItem
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
