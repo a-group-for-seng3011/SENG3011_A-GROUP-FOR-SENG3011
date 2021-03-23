@@ -105,7 +105,7 @@ class LocationExtractionPipeline:
                 
         for text in gpe:
             summary = str(wikipedia.summary(text))
-            if ('city' in summary):
+            if not ('country' in summary):
                 location.append(text)
             if ('country' in summary):
                 country.append(text)
