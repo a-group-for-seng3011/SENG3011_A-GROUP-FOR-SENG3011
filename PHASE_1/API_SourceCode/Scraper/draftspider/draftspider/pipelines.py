@@ -114,15 +114,15 @@ class LocationExtractionPipeline:
             if ('country' in summary):
                 country.append(text)
 
-        if len(location) > 0:
-            geolocator = Nominatim(user_agent = "geoapiExercises")
-            cntry = geolocator.geocode(location[0])
+        # if len(location) > 0:
+        #     geolocator = Nominatim(user_agent = "geoapiExercises")
+        #     cntry = geolocator.geocode(location[0])
     
         # TODO: it's not complete, isn't it? 
         # locations --(1)--------(n)-- locationItem, which means locations = [locationItem1, locationItem2, ...]
         # locationItem = { country:<string>, location: <string> }
         # TODO: your code here is for the 'location' attribute of a locationItem, it should be **a string** rather than a list
-        item['reports'][0]['locations'][0]['location'] = location[0] # TODO: why is this a list? or what does it stand for if you think it should be a list?
+        item['reports'][0]['locations'][0]['location'] = ', '.join(location) # TODO: why is this a list? or what does it stand for if you think it should be a list?
         # TODO: your code here is for the 'country' attribute of a locationItem, it should be **a string** rather than a list
-        item['reports'][0]['locations'][0]['country'] = cntry # TODO: why is this a list? or what does it stand for if you think it should be a list?
+        item['reports'][0]['locations'][0]['country'] = ', '.join(country) # TODO: why is this a list? or what does it stand for if you think it should be a list?
         return item
