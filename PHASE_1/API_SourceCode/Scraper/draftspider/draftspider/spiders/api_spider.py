@@ -22,13 +22,14 @@ class APISpider(scrapy.Spider):
     
     def parse_article(self, response):
         url = response.url
-        # date format: 2018-11-xx 17:00:xx
+        # datetime format: '2018-11-xxT17:00:xx'
         extract_datetime = response.xpath("//meta[@property='article:published_time']/@content").get()
-        date_str = extract_datetime[:-6]
-        if date_str is None:
-            date_of_publication = "xxxx-xx-xx xx:xx:xx"
+        datetime_str = date_of_publication = extract_datetime[:-6]
+        # AWSDatetime format: YYYY-MM-DDThh:mm:ss.sssZ
+        if not datetime_str:
+            date_of_publication = None
         else:
-            date_of_publication = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S")
+            date_of_publication = datetime_str + ".000Z"
 
         # extract information for article object
         headline = response.xpath('//title/text()').get()
@@ -43,6 +44,7 @@ class APISpider(scrapy.Spider):
             text_clean.append(piece)
 
         # placeholders for internal objects
+        # TODO: change placeholder to None after finished scraping
         articleItem = ArticleItem()
         reportItem = ReportItem()
         locationItem = LocationItem()
