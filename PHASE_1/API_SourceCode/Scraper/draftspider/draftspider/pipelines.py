@@ -8,7 +8,8 @@ import spacy
 import en_ner_bc5cdr_md
 # from geopy.geocoders import Nominatim
 import gc
-import wikipedia
+# import wikipedia
+import geonamescache
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
@@ -90,27 +91,58 @@ class SyndromeExtractionPipeline:
 # TODO: not yet complete
 class LocationExtractionPipeline:
     def process_item(self, item, spider):
+        gc = geonamescache.GeonamesCache()
+        # gets nested dictionary for countries
+        countries = gc.get_countries()
+        country_list = {}
+        for country in countries:
+            for k, v in countries[country].items():
+                if k == "name":
+                    country_list[v] = country
+                elif k == "iso":
+                    country_list[v] = country
+                    s = ".".join(v[i:i + 1] for i in range(0, len(v), 1))
+                    country_list[s] = country
+                elif k == "iso3":
+                    country_list[v] = country
+        # gets nested dictionary for cities
+        cities = gc.get_cities()
+        city_list = []
+        for elem in cities.values():
+            city_list.append(elem['name'])
+
         nlp = spacy.load("en_core_web_sm")
         doc = nlp(item['main_text'])
-        #combine text with its label
-        labl = {}
-        for token in doc.ents:
-            labl[token.text] = token.label_
-
-        gpe = []
-        # TODO: why are they lists?
-        location = []
         country = []
-        for wrd,lbl in labl.items():
-            if lbl == "GPE":
-                gpe.append(wrd)
-                
-        for text in gpe:
-            summary = str(wikipedia.summary(text))
-            if not ('country' in summary):
-                location.append(text)
-            if ('country' in summary):
-                country.append(text)
+        location = []
+        count = {}
+        for ent in doc.ents:
+            if ent.label_ == 'GPE':
+                find_country = country_list.get(ent.text)
+                if find_country is not None and count.get(find_country) is None:
+                    count[find_country] = count.get(find_country, 0) + 1
+                    country.append(ent.text)
+                elif ent.text in city_list:
+                    location.append(ent.text)
+
+        #combine text with its label
+        # labl = {}
+        # for token in doc.ents:
+        #     labl[token.text] = token.label_
+
+        # gpe = []
+        # # TODO: why are they lists?
+        # location = []
+        # country = []
+        # for wrd,lbl in labl.items():
+        #     if lbl == "GPE":
+        #         gpe.append(wrd)
+        # for text in gpe:
+        #     summary = str(wikipedia.summary(text))
+        #     if not ('country' in summary):
+        #         location.append(text)
+        #     if ('country' in summary):
+        #         country.append(text)
 
         # if len(location) > 0:
         #     geolocator = Nominatim(user_agent = "geoapiExercises")
