@@ -35,7 +35,7 @@ class APISpider(scrapy.Spider):
         headline = response.xpath('//title/text()').get()
         text_dirty = response.xpath('//div[@class="postcontent"]/*[self::p or self::ul or self::h3]//text()[not(parent::script)][not(parent::a/parent::strong)][not(parent::a[@href]/parent::*[not(text())])][not(parent::strong/parent::a/parent::*[not(text())])][not(parent::strong/parent::em/parent::a[not(text())])]').getall()
         # trim white spaces, \xA0 and new line characters for every element in list
-        text_list = [ piece.strip().replace('\xA0', ' ') for piece in text_dirty if piece.strip()]
+        text_list = [ piece.strip().replace('\xA0', ' ') for piece in text_dirty if piece.strip() ]
         text_clean = []
         for piece in text_list:
             # remove empty strings and author text
@@ -49,18 +49,18 @@ class APISpider(scrapy.Spider):
         reportItem = ReportItem()
         locationItem = LocationItem()
         # location item
-        locationItem["country"] = "<country>"
-        locationItem["location"] = "<location>"
+        locationItem["country"] = ""
+        locationItem["location"] = ""
         # report item
-        reportItem["diseases"] = ["<diseases>"]
-        reportItem["syndromes"] = ["<syndromes>"]
+        reportItem["diseases"] = []
+        reportItem["syndromes"] = []
         reportItem["event_date"] = date_of_publication
-        reportItem["locations"] = [locationItem]
+        reportItem["locations"] = [ locationItem ]
         # article item
         articleItem["url"] = url
         articleItem["date_of_publication"] = date_of_publication
         articleItem["headline"] = headline
         articleItem["main_text"] = ' '.join(text_clean)
-        articleItem["reports"] = [reportItem]
+        articleItem["reports"] = [ reportItem ]
 
         yield articleItem

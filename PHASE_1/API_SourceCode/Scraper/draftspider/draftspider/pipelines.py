@@ -8,6 +8,8 @@ import spacy
 import en_ner_bc5cdr_md
 import gc
 import geonamescache
+from gql import Client, gql
+from gql.transport.aiohttp import AIOHTTPTransport
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
@@ -146,4 +148,125 @@ class LocationExtractionPipeline:
                 i = 1
             else:
                 item['reports'][0]['locations'].append(e)
+        return item
+
+# TODO: create requests to the GraphQL API on AWS
+# TODO: DON'T FORGET to remove comment in settings.py when finished
+# API URL: https://jadwqdo2anaydpf3tx4leaqvgy.appsync-api.ap-southeast-2.amazonaws.com/graphql
+# API KEY: da2-q4rynvvl4vg3njaluug2tptjru
+class GraphQLMutationPipeline:
+    def __init__(self):
+        # Select transport with our url endpoint
+        # TODO: Mock api
+        transport = AIOHTTPTransport(url='http://129.94.242.117:20002/graphql', headers={'x-api-key': 'da2-fakeApiId123456'})
+        # self.transport = AIOHTTPTransport(url='https://jadwqdo2anaydpf3tx4leaqvgy.appsync-api.ap-southeast-2.amazonaws.com/graphql', headers={'x-api-key': 'da2-q4rynvvl4vg3njaluug2tptjru'})
+        # Create a GraphQL client using the defined transport
+        self.client = Client(transport=transport, fetch_schema_from_transport=True)
+
+    def process_item(self, item, spider):
+        # TODO: mock item
+        item = {
+            "url": "http://outbreaknewstoday.com/sexually-transmitted-infections-in-the-us-the-burden-of-stis-is-staggering-43427/",
+            "date_of_publication": "2021-01-26T11:41:34.000Z",
+            "headline": "some headline text",
+            "main_text": "lots of text content for main text",
+            "reports": [
+                {
+                    "diseases": [
+                        "COVID-19",
+                        "HPV",
+                        "pelvic inflammatory disease",
+                        "HIV",
+                        "syphilis"
+                    ],
+                    "syndromes": [
+                        "infection",
+                        "infertility",
+                        "chlamydia",
+                        "gonorrhea"
+                    ],
+                    "event_date": "2021-01-26T11:41:34.000Z",
+                    "locations": [
+                        {
+                            "country": "",
+                            "location": ""
+                        }
+                    ]
+                }
+            ]
+        }
+
+        # create an article
+        articleQuery = gql('''
+            mutation articleMutation ($input: CreateArticleInput!) {
+                createArticle (input: $input){id}
+            }
+        ''')
+        articleParams = {
+            'input': {
+                'date_of_publication': item['date_of_publication'],
+                'headline': item['headline'],
+                'main_text': item['main_text'],
+                'url': item['url']
+            }
+        }
+        # TODO: Mock request
+        articleID = client.execute(articleQuery, variable_values=articleParams)['createArticle']['id']
+        # articleID = self.client.execute(articleQuery, variable_values=articleParams)['createArticle']['id']
+
+        # create a report
+        reportQuery = gql('''
+            mutation reportMutation ($input: CreateReportInput!) {
+                createReport (input: $input){id}
+            }
+        ''')
+        reportParams = {
+            'input': {
+                'event_date': item['reports'][0]['event_date'],
+                'articleID': articleID
+            }
+        }
+        # TODO: Mock request
+        reportID = client.execute(reportQuery, variable_values=reportParams)['createReport']['id']
+        # reportID = self.client.execute(reportQuery, variable_values=reportParams)['createReport']['id']
+
+        # create a list of diseases
+        diseasesIDs = []
+        for disease in item['reports'][0]['diseases']:
+            diseaseQuery = gql('''
+                mutation diseaseMutation ($input: CreateDiseaseInput!) {
+                    createDisease (input: $input){id}
+                }
+            ''')
+            diseaseParams = {
+                'input': {
+                    'name': disease,
+                    'reportID': reportID
+                }
+            }
+            # TODO: Mock request
+            diseaseID = client.execute(diseaseQuery, variable_values=diseaseParams)['createDisease']['id']
+            # diseaseID = self.client.execute(diseaseQuery, variable_values=diseaseParams)['createDisease']['id']
+            diseasesIDs.append(diseaseID)
+
+        # create a list of syndromes
+        syndromesIDs = []
+        for syndrome in item['reports'][0]['syndromes']:
+            syndromeQuery = gql('''
+                mutation syndromeMutation ($input: CreateSyndromeInput!) {
+                    createSyndrome (input: $input){id}
+                }
+            ''')
+            syndromeParams = {
+                'input': {
+                    'name': syndrome,
+                    'reportID': reportID
+                }
+            }
+            # TODO: Mock request
+            syndromeID = client.execute(syndromeQuery, variable_values=syndromeParams)['createSyndrome']['id']
+            # syndromeID = self.client.execute(syndromeQuery, variable_values=syndromeParams)['createSyndrome']['id']
+            syndromesIDs.append(syndromeID)
+        
+        # TODO: createLocation request
         return item

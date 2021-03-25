@@ -66,6 +66,8 @@ ITEM_PIPELINES = {
    'draftspider.pipelines.DiseaseExtractionPipeline': 100,
    'draftspider.pipelines.SyndromeExtractionPipeline': 200,
    'draftspider.pipelines.LocationExtractionPipeline': 300,
+   # 'draftspider.pipelines.GraphQLMutationPipeline': 500,
+   
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
