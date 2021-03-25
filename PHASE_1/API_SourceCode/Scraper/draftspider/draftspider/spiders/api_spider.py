@@ -33,7 +33,7 @@ class APISpider(scrapy.Spider):
 
         # extract information for article object
         headline = response.xpath('//title/text()').get()
-        text_dirty = response.xpath('//div[@class="postcontent"]/*[self::p or self::ul or self::h3]//text()[not(parent::script)][not(parent::a/parent::strong)][not(parent::a[@href]/parent::*[not(text())])][not(parent::strong/parent::a/parent::*[not(text())])][not(parent::strong/parent::em/parent::a[not(text())])]').getall()
+        text_dirty = response.xpath('//div[@class="postcontent"]//*[self::p or self::ul or self::h3]//text()[not(parent::script)][not(parent::a/parent::strong)][not(parent::a[@href]/parent::*[not(text())])][not(parent::strong/parent::a/parent::*[not(text())])][not(parent::strong/parent::em/parent::a[not(text())])]').getall()
         # trim white spaces, \xA0 and new line characters for every element in list
         text_list = [ piece.strip().replace('\xA0', ' ') for piece in text_dirty if piece.strip() ]
         text_clean = []
