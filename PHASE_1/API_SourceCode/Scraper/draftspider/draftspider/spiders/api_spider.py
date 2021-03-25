@@ -44,7 +44,6 @@ class APISpider(scrapy.Spider):
             text_clean.append(piece)
 
         # placeholders for internal objects
-        # TODO: change placeholder to None after finished scraping
         articleItem = ArticleItem()
         reportItem = ReportItem()
         # report item
