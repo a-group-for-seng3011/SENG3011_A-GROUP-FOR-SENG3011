@@ -155,7 +155,6 @@ class LocationExtractionPipeline:
         return item
 
 # create requests to the GraphQL API on AWS
-# TODO: DON'T FORGET to remove comment in settings.py when finished
 # API URL: https://jadwqdo2anaydpf3tx4leaqvgy.appsync-api.ap-southeast-2.amazonaws.com/graphql
 # API KEY(will expire in May): da2-q4rynvvl4vg3njaluug2tptjru
 class GraphQLMutationPipeline:
