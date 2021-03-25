@@ -30,6 +30,13 @@ class DiseaseExtractionPipeline:
         # remove duplicates
         _list = item['reports'][0]['diseases']
         item['reports'][0]['diseases'] = list(set(_list))
+        # remove item that is a substring of another item
+        item['reports'][0]['diseases'].sort(key=lambda s: len(s), reverse=True)
+        out = []
+        for s in item['reports'][0]['diseases']:
+            if not any([s.lower() in o.lower() for o in out]):
+                out.append(s)
+        item['reports'][0]['diseases'] = out
         gc.collect()
         return item
 
@@ -90,7 +97,6 @@ class SyndromeExtractionPipeline:
         item['reports'][0]['syndromes'] = syndromes
         return item
 
-# TODO: not yet complete
 class LocationExtractionPipeline:
     def process_item(self, item, spider):
         gc = geonamescache.GeonamesCache()
