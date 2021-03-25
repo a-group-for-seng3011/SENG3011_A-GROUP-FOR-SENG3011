@@ -47,15 +47,11 @@ class APISpider(scrapy.Spider):
         # TODO: change placeholder to None after finished scraping
         articleItem = ArticleItem()
         reportItem = ReportItem()
-        locationItem = LocationItem()
-        # location item
-        locationItem["country"] = ""
-        locationItem["location"] = ""
         # report item
         reportItem["diseases"] = []
         reportItem["syndromes"] = []
         reportItem["event_date"] = date_of_publication
-        reportItem["locations"] = [ locationItem ]
+        reportItem["locations"] = []
         # article item
         articleItem["url"] = url
         articleItem["date_of_publication"] = date_of_publication

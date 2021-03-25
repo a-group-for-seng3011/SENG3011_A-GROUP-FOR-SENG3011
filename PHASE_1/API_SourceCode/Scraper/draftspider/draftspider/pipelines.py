@@ -136,18 +136,16 @@ class LocationExtractionPipeline:
             iso = country_list[country_name]
             for location_dict in location:
                 if iso in list(location_dict.values()):
-                    result.append({"country": country_name, "location": list(location_dict.keys()).pop(0)})
+                    locationItem = LocationItem()
+                    locationItem["country"] = country_name
+                    locationItem["location"] = list(location_dict.keys()).pop(0)
+                    result.append(locationItem)
             if not any(elem["country"] == country_name for elem in result):
                 result.append({"country": country_name, "location": ""})
 
         i = 0
         for e in result:
-            if i == 0:
-                item['reports'][0]['locations'][i]['location'] = e['location']
-                item['reports'][0]['locations'][i]['country'] = e['country']
-                i = 1
-            else:
-                item['reports'][0]['locations'].append(e)
+            item['reports'][0]['locations'].append(e)
         return item
 
 # TODO: create requests to the GraphQL API on AWS
@@ -268,5 +266,24 @@ class GraphQLMutationPipeline:
             # syndromeID = self.client.execute(syndromeQuery, variable_values=syndromeParams)['createSyndrome']['id']
             syndromesIDs.append(syndromeID)
         
-        # TODO: createLocation request
+        # create a list of locations
+        locationsIDs = []
+        for locationItem in item['reports'][0]['locations']:
+            locationQuery = gql('''
+                mutation locationMutation ($input: CreateLocationInput!) {
+                    createLocation (input: $input){id}
+                }
+            ''')
+            locationParams = {
+                'input': {
+                    'country': locationItem['country'],
+                    'location': locationItem['location'],
+                    'reportID': reportID
+                }
+            }
+            # TODO: Mock request
+            locationID = client.execute(locationQuery, variable_values=locationParams)['createLocation']['id']
+            # locationID = self.client.execute(locationQuery, variable_values=locationParams)['createLocation']['id']
+            locationsIDs.append(locationID)
+        
         return item
