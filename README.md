@@ -7,7 +7,10 @@
 │   ├── README.MD
 │   ├── PHASE_1
 │   │   ├── API_SourceCode
+│   │   │   ├── Scraper
+│   │   │   ├── GraphQL
 │   │   ├── API_Documentation
+│   │   │   ├── GraphQL
 │   │   ├── TestScripts
 │   ├── PHASE_2
 │   │   ├── Application_SourceCode
