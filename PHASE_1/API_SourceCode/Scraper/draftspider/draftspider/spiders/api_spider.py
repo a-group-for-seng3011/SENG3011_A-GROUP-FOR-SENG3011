@@ -6,7 +6,7 @@ class APISpider(scrapy.Spider):
     name = 'api'
     start_urls = ['http://outbreaknewstoday.com/category/headlines/']
     custom_settings = {
-        "DOWNLOAD_DELAY": 1, # in case some websites prevent scraping if the time between request is too small
+        "DOWNLOAD_DELAY": 2, # in case some websites prevent scraping if the time between request is too small
         "RETRY_ENABLED": True,
     }
 
