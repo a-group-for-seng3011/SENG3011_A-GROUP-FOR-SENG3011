@@ -1,4 +1,5 @@
 ## Run the web scraper in the virtual environment
+**Please notice that the scraper will only work if you have installed GNU version command line tools**  
 Set up a virtual environment outside our project folder and activate it
 ```bash
 python3 -m venv seng3011venv
