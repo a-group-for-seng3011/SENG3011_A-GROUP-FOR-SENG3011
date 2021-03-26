@@ -25,7 +25,7 @@
 
 ## API Documentation
 
-* URL: http://amplify-outbreaknewstoday-doc.s3-website-ap-southeast-2.amazonaws.com/
+* URL: <http://amplify-outbreaknewstoday-doc.s3-website-ap-southeast-2.amazonaws.com/>
 
 ### Graphdoc Documentation Generator
 
@@ -34,7 +34,15 @@
 
 ## Prod API Endpoint
 
-* URL: https://xjbexovx7fde7h6hfggtike5ey.appsync-api.ap-southeast-2.amazonaws.com/graphql
+* URL: <https://xjbexovx7fde7h6hfggtike5ey.appsync-api.ap-southeast-2.amazonaws.com/graphql>
 * Headers `x-api-key: da2-jzokeb4pi5bfnjgd3s5ihjemmq`
 
-To interactively test the endpoint, use https://altair-gql.sirmuel.design/ setting the header in the left navigation bar.
+To interactively test the endpoint, use <https://altair-gql.sirmuel.design/> setting the header in the left navigation bar.
+
+## Copying Staging to Prod Database
+
+1. Install copy-dynamodb-table: `npm install copy-dynamodb-table`
+2. Use the `Copy_Database.js` script under `PHASE_1/API_SourceCode/Copy_Database.js` from the npm documentation to copy the tables in this order due to foreign keys:
+    1. Article
+    2. Report
+    3. Disease, Syndrome, Location
