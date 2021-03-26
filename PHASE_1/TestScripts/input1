@@ -1,0 +1,30 @@
+query MyQuery {
+  listArticles(filter: {headline: {contains: "COVID-19"}}) {
+    items {
+      url
+      date_of_publication
+      headline
+      main_text
+      Reports {
+        items {
+          Diseases(filter: {name: {contains: "COVID-19"}}) {
+            items {
+              name
+            }
+          }
+          Syndromes(filter: {name: {contains: ""}}) {
+            items {
+              name
+            }
+          }
+          Locations(filter: {country: {contains: "Sweden"}, location: {contains: ""}}) {
+            items {
+              country
+              location
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+**/*.pyc
+**/__pycache__
+**/.vscode/
+**/.DS_Store
+**/venv
+**/test*.json
+**/api.json
+**/OutbreakNewsToday/
+**/mock_test.py
