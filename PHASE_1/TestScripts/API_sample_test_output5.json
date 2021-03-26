@@ -1,0 +1,151 @@
+{
+	"id": "c0606635-061f-4fc2-80de-ed9262c58db5",
+	"name": "a-group-for-seng3011",
+	"timestamp": "2021-03-26T05:44:12.902Z",
+	"collection_id": "790073b9-7932-4223-8efe-a308421a89f4",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 19,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "620fa88f-59c3-4f82-8e95-58e020512425",
+			"name": "a-group-for-seng3011",
+			"url": "https://jadwqdo2anaydpf3tx4leaqvgy.appsync-api.ap-southeast-2.amazonaws.com/graphql",
+			"time": 208,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Content-Type is present": true,
+				"Content-Type is JSON": true,
+				"Response time is less than 500ms": true,
+				"Response should be a parsable JSON": true,
+				"Response body should be an object": true,
+				"url key is truthy": true,
+				"date_of_publication key is truthy": true,
+				"headline key is truthy": true,
+				"main_text key is truthy": true,
+				"Reports key is truthy": true,
+				"Diseases key is truthy": true,
+				"Syndromes key is truthy": true,
+				"Locations key is truthy": true,
+				"url matches standard Regex": true,
+				"Response body should be in the correct format": true,
+				"url link is valid": true,
+				"response should be ok to process for the link": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should be a parsable JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body should be an object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"url key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"date_of_publication key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"headline key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"main_text key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Reports key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Diseases key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Syndromes key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Locations key is truthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"url matches standard Regex": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body should be in the correct format": {
+					"pass": 1,
+					"fail": 0
+				},
+				"url link is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should be ok to process for the link": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				208
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Content-Type is present": true,
+					"Content-Type is JSON": true,
+					"Response time is less than 500ms": true,
+					"Response should be a parsable JSON": true,
+					"Response body should be an object": true,
+					"url key is truthy": true,
+					"date_of_publication key is truthy": true,
+					"headline key is truthy": true,
+					"main_text key is truthy": true,
+					"Reports key is truthy": true,
+					"Diseases key is truthy": true,
+					"Syndromes key is truthy": true,
+					"Locations key is truthy": true,
+					"url matches standard Regex": true,
+					"Response body should be in the correct format": true,
+					"url link is valid": true,
+					"response should be ok to process for the link": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 208,
+	"collection": {
+		"requests": [
+			{
+				"id": "620fa88f-59c3-4f82-8e95-58e020512425",
+				"method": "POST"
+			}
+		]
+	}
+}

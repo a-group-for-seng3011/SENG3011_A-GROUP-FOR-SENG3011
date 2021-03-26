@@ -1,0 +1,30 @@
+query MyQuery {
+  listArticles(filter: {headline: {contains: "West Nile virus"}}) {
+    items {
+      url
+      date_of_publication
+      headline
+      main_text
+      Reports {
+        items {
+          Diseases(filter: {name: {contains: "West Nile virus"}}) {
+            items {
+              name
+            }
+          }
+          Syndromes(filter: {name: {contains: "Infection"}}) {
+            items {
+              name
+            }
+          }
+          Locations(filter: {country: {contains: "Australia"}, location: {contains: ""}}) {
+            items {
+              country
+              location
+            }
+          }
+        }
+      }
+    }
+  }
+}
