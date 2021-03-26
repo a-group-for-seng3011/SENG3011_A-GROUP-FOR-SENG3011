@@ -1,0 +1,30 @@
+query MyQuery {
+  listArticles(filter: {headline: {contains: "E. coli"}}) {
+    items {
+      url
+      date_of_publication
+      headline
+      main_text
+      Reports {
+        items {
+          Diseases(filter: {name: {contains: ""}}) {
+            items {
+              name
+            }
+          }
+          Syndromes(filter: {name: {contains: "kidney failure"}}) {
+            items {
+              name
+            }
+          }
+          Locations(filter: {country: {contains: ""}, location: {contains: ""}}) {
+            items {
+              country
+              location
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+query MyQuery {
+  listArticles(filter: {headline: {contains: "Ebola"}}) {
+    items {
+      url
+      date_of_publication
+      headline
+      main_text
+      Reports {
+        items {
+          Diseases(filter: {name: {contains: "Ebola"}}) {
+            items {
+              name
+            }
+          }
+          Syndromes(filter: {name: {contains: ""}}) {
+            items {
+              name
+            }
+          }
+          Locations(filter: {country: {contains: ""}, location: {contains: ""}}) {
+            items {
+              country
+              location
+            }
+          }
+        }
+      }
+    }
+  }
+}
