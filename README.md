@@ -11,15 +11,16 @@
 │   │   │   ├── GraphQL
 │   │   ├── API_Documentation
 │   │   │   ├── GraphQL
-│   │   ├── TestScripts
+│   │   │   ├── Sample_Log.csv
+│   │   ├── Test_Scripts
 │   ├── PHASE_2
 │   │   ├── Application_SourceCode
 │   │   ├── Application_Documentation
 │   ├── Reports
-│   │   ├── Management Information
-│   │   ├── Design Details
-│   │   ├── Testing Documentation
-│   │   ├── Final Report
+│   │   ├── Management Information.pdf
+│   │   ├── Design Details.pdf
+│   │   ├── Testing Documentation.pdf
+│   │   ├── Final Report.pdf
 ```
 
 ## API Documentation
