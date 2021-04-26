@@ -17,9 +17,6 @@
 │   │   ├── Application_SourceCode
 │   │   ├── Application_Documentation
 │   ├── Reports
-│   │   ├── Management Information.pdf
-│   │   ├── Design Details.pdf
-│   │   ├── Testing Documentation.pdf
 │   │   ├── Final Report.pdf
 ```
 
